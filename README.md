@@ -1,10 +1,8 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-
 TOKEN = 'YOUR_TOKEN_HERE'
 tasks = []
-
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Обработчик команды '/start'"""
     await update.message.reply_text(
@@ -23,7 +21,6 @@ async def list_tasks(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         response = "\n".join([f"{i+1}. {task}" for i, task in enumerate(tasks)])
         await update.message.reply_text(response)
-
 async def done_task(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Обработчик команды '/done'. Отмечает задачу выполненной."""
     try:
@@ -46,7 +43,6 @@ async def delete_task(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_text("Неверный индекс задачи.")
     except ValueError:
         await update.message.reply_text("Укажите номер задачи.")
-
 if __name__ == '__main__':
     application = ApplicationBuilder().token(TOKEN).build()
 
